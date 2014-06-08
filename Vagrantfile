@@ -37,18 +37,42 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.custom_config_path = "Vagrantfile.chef"
 
     chef.cookbooks_path = "cookbooks"
-    chef.add_recipe "base"
+    # chef.add_recipe "base"
     chef.add_recipe "mysql::server"
+    chef.add_recipe "ruby_build"
     chef.add_recipe "rbenv::user"
     chef.add_recipe "rbenv::vagrant"
-    # chef.add_recipe "rvm::vagrant"
-    # chef.add_recipe "git"
+
+    # TODO
     # chef.add_recipe "nginx"
-    # chef.add_role "web"
+    # chef.add_recipe "zsh"
+    # chef.add_recipe "git"
+    # chef.add_recipe "curl"
+    # package "libmysqlclient-dev"
 
 
     # You may also specify custom JSON attributes:
-    chef.json = { 'mysql' => { 'server_root_password' => 'foo_alpha' } }
+    chef.json = {
+      :mysql => { :server_root_password => 'foo_alpha' },
+      :rbenv => {
+        :user_rubies => ['2.1.2'],
+        :global  => '2.1.2',
+        :user_installs => [
+          {
+            :user    => 'vagrant',
+            :global  => '2.1.2',
+            :rubies  => ['2.1.2'],
+            :gems    =>
+            {
+              '2.1.2' => [
+                { :name => 'bundler' },
+                { :name => 'capistrano' }
+              ]
+            }
+          }
+        ]
+      }
+    }
   end
 
 end
