@@ -42,14 +42,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe "ruby_build"
     chef.add_recipe "rbenv::user"
     chef.add_recipe "rbenv::vagrant"
+    chef.add_recipe "nginx"
+    chef.add_recipe "git"
 
     # TODO
-    # chef.add_recipe "nginx"
     # chef.add_recipe "zsh"
-    # chef.add_recipe "git"
     # chef.add_recipe "curl"
     # package "libmysqlclient-dev"
-
+    # chef.add_recipe "prezto"
 
     # You may also specify custom JSON attributes:
     chef.json = {
